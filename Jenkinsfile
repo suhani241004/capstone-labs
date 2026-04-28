@@ -5,27 +5,30 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/suhani241004/capstone-labs.git'
+                checkout scm
             }
         }
 
-        stage('Install Backend Dependencies') {
+        stage('Install Backend') {
             steps {
                 bat 'npm install'
             }
         }
 
-        stage('Install Frontend Dependencies') {
+        stage('Install Frontend') {
             steps {
-                bat 'cd client && npm install'
+                dir('client') {
+                    bat 'npm install'
+                }
             }
         }
 
         stage('Build Frontend') {
             steps {
-                bat 'cd client && npm run build'
+                dir('client') {
+                    bat 'npm run build'
+                }
             }
         }
-
     }
 }
