@@ -2,22 +2,30 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 git 'https://github.com/suhani241004/capstone-labs.git'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Backend Dependencies') {
             steps {
                 bat 'npm install'
             }
         }
 
-        stage('Build') {
+        stage('Install Frontend Dependencies') {
             steps {
-                bat 'npm run build'
+                bat 'cd client && npm install'
             }
         }
+
+        stage('Build Frontend') {
+            steps {
+                bat 'cd client && npm run build'
+            }
+        }
+
     }
 }
